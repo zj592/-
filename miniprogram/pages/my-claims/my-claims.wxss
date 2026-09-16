@@ -1,0 +1,57 @@
+.page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.claim-item-title {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-right: 16rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.claim-item-sub {
+  font-size: 23rpx;
+  color: #b6bdc9;
+  margin-top: 10rpx;
+}
+
+.claim-row {
+  display: flex;
+  margin-bottom: 14rpx;
+}
+
+.claim-label {
+  width: 140rpx;
+  font-size: 25rpx;
+  color: #8a94a6;
+  flex-shrink: 0;
+}
+
+.claim-value {
+  flex: 1;
+  font-size: 26rpx;
+  color: #3d4653;
+  line-height: 1.6;
+  word-break: break-all;
+}
+
+.claim-value.highlight {
+  color: #3b7cff;
+}
+
+.claim-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10rpx;
+}
+
+.claim-actions .btn {
+  margin-left: 16rpx;
+}
+
+.primary-sm {
+  color: #ffffff;
+}

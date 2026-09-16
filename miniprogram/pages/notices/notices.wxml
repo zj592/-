@@ -1,0 +1,33 @@
+<view class="page">
+  <view class="notice-head">
+    <text class="head-text">未读消息 <text class="head-num">{{unread}}</text> 条</text>
+    <text class="head-action" bindtap="readAll">全部已读</text>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <text class="empty-icon">🔔</text>
+    <text>还没有收到消息</text>
+  </view>
+
+  <view
+    wx:for="{{list}}"
+    wx:key="id"
+    class="card notice-card {{item.isRead ? 'is-read' : ''}}"
+    data-item="{{item}}"
+    bindtap="open"
+  >
+    <view class="notice-top">
+      <view class="notice-left">
+        <text wx:if="{{!item.isRead}}" class="dot"></text>
+        <text class="tag {{item.typeClass}}">{{item.typeText}}</text>
+        <text class="notice-title">{{item.title}}</text>
+      </view>
+      <text class="notice-time">{{item.timeText}}</text>
+    </view>
+    <view class="notice-content">{{item.content}}</view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="loading-more">
+    {{hasMore ? '上拉加载更多' : '已全部加载，共 ' + total + ' 条'}}
+  </view>
+</view>

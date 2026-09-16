@@ -1,0 +1,78 @@
+.page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.notice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8rpx 20rpx;
+}
+
+.head-text {
+  font-size: 26rpx;
+  color: #5b6473;
+}
+
+.head-num {
+  color: #f2544b;
+  font-weight: 700;
+}
+
+.head-action {
+  font-size: 25rpx;
+  color: #3b7cff;
+}
+
+.notice-card {
+  padding: 26rpx;
+}
+
+.notice-card.is-read {
+  opacity: 0.62;
+}
+
+.notice-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.notice-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+.dot {
+  width: 14rpx;
+  height: 14rpx;
+  border-radius: 50%;
+  background: #f2544b;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.notice-title {
+  font-size: 29rpx;
+  font-weight: 600;
+  margin-left: 4rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.notice-time {
+  font-size: 22rpx;
+  color: #b6bdc9;
+  margin-left: 16rpx;
+  flex-shrink: 0;
+}
+
+.notice-content {
+  font-size: 26rpx;
+  color: #7d8798;
+  line-height: 1.6;
+}

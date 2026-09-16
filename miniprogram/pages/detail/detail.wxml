@@ -1,0 +1,117 @@
+<view class="page" wx:if="{{item}}">
+  <!-- 主体信息 -->
+  <view class="card">
+    <view class="item-tags">
+      <text class="tag {{item.type === 'LOST' ? 'tag-lost' : 'tag-found'}}">{{item.typeText}}</text>
+      <text class="tag tag-primary">{{item.categoryText}}</text>
+      <text class="tag tag-{{item.status === 'APPROVED' ? 'success' : (item.status === 'PENDING' ? 'warning' : (item.status === 'FINISHED' ? 'info' : 'danger'))}}">{{item.statusText}}</text>
+    </view>
+
+    <view class="detail-title">{{item.title}}</view>
+
+    <view wx:if="{{item.images.length > 0}}" class="image-list">
+      <image
+        wx:for="{{item.images}}"
+        wx:for-item="img"
+        wx:key="*this"
+        class="detail-image"
+        src="{{img}}"
+        mode="aspectFill"
+        data-index="{{index}}"
+        bindtap="previewImage"
+      />
+    </view>
+
+    <view class="detail-text">{{item.description}}</view>
+
+    <view wx:if="{{item.rejectReason}}" class="reject-box">驳回原因：{{item.rejectReason}}</view>
+
+    <view class="divider"></view>
+
+    <view class="info-row">
+      <text class="info-label">{{item.type === 'LOST' ? '丢失地点' : '拾取地点'}}</text>
+      <text class="info-value">{{item.place || '未填写'}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">{{item.type === 'LOST' ? '丢失时间' : '拾取时间'}}</text>
+      <text class="info-value">{{item.lostTimeText}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">联系方式</text>
+      <text class="info-value highlight">{{item.contact || '未填写'}}</text>
+    </view>
+    <view wx:if="{{!isLogin}}" class="tip-inline">登录后可查看完整联系方式</view>
+  </view>
+
+  <!-- 发布者 -->
+  <view class="card publisher-card">
+    <image wx:if="{{item.publisherAvatar}}" class="publisher-avatar" src="{{item.publisherAvatar}}" />
+    <view wx:else class="publisher-avatar publisher-avatar-text">{{item.publisherNickname ? item.publisherNickname[0] : '同'}}</view>
+    <view class="publisher-info">
+      <view class="publisher-name">{{item.publisherNickname || '匿名同学'}}</view>
+      <view class="publisher-sub">发布于 {{item.createTimeText}} · 浏览 {{item.viewCount || 0}}</view>
+    </view>
+  </view>
+
+  <!-- 发布者看到申请入口 -->
+  <view wx:if="{{item.owner && item.claimCount > 0}}" class="card claim-entry" bindtap="goReceivedClaims">
+    <text>有 {{item.claimCount}} 条待处理的认领申请</text>
+    <text class="claim-entry-arrow">查看 ›</text>
+  </view>
+
+  <!-- 底部操作栏 -->
+  <view class="action-bar">
+    <block wx:if="{{item.owner}}">
+      <view class="btn btn-ghost action-btn" bindtap="edit">编辑</view>
+      <view class="btn btn-ghost action-btn" bindtap="remove">删除</view>
+      <view wx:if="{{item.status !== 'FINISHED'}}" class="btn btn-primary action-btn flex-2" bindtap="markFinish">标记完成</view>
+    </block>
+    <block wx:else>
+      <view
+        wx:if="{{item.claimed}}"
+        class="btn btn-ghost action-btn flex-3"
+      >已提交认领申请，等待发布者确认</view>
+      <view
+        wx:elif="{{item.status === 'APPROVED'}}"
+        class="btn btn-primary action-btn flex-3"
+        bindtap="openClaim"
+      >我要认领</view>
+      <view wx:else class="btn btn-ghost action-btn flex-3">该信息已结束</view>
+    </block>
+  </view>
+
+  <!-- 认领弹窗 -->
+  <view wx:if="{{showClaim}}" class="mask" bindtap="closeClaim">
+    <view class="claim-modal" catchtap="noop">
+      <view class="claim-title">申请认领</view>
+      <view class="claim-sub">请描述物品特征（颜色、贴纸、编号等），方便发布者确认</view>
+      <textarea
+        class="claim-textarea"
+        value="{{claimForm.description}}"
+        data-field="description"
+        maxlength="200"
+        placeholder="例：卡套背面贴了蓝色贴纸，卡号后四位 6231"
+        placeholder-class="form-placeholder"
+        bindinput="onClaimInput"
+      />
+      <input
+        class="claim-input"
+        value="{{claimForm.contact}}"
+        data-field="contact"
+        maxlength="60"
+        placeholder="你的联系方式（选填）"
+        placeholder-class="form-placeholder"
+        bindinput="onClaimInput"
+      />
+      <view class="claim-actions">
+        <view class="btn btn-ghost action-btn" bindtap="closeClaim">取消</view>
+        <view class="btn btn-primary action-btn flex-2" bindtap="submitClaim">提交申请</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:elif="{{!loading}}" class="empty">
+  <text class="empty-icon">😢</text>
+  <text>信息不存在或已被删除</text>
+</view>

@@ -1,0 +1,49 @@
+.page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.item-tags {
+  display: flex;
+}
+
+.time-text {
+  font-size: 23rpx;
+  color: #b6bdc9;
+}
+
+.item-title {
+  font-size: 31rpx;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 16rpx 0 10rpx;
+}
+
+.reject-text {
+  font-size: 24rpx;
+  color: #f2544b;
+  background: #feeceb;
+  border-radius: 10rpx;
+  padding: 12rpx 16rpx;
+  margin-bottom: 12rpx;
+  line-height: 1.5;
+}
+
+.item-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16rpx;
+}
+
+.foot-text {
+  font-size: 23rpx;
+  color: #98a1b0;
+}
+
+.foot-actions {
+  display: flex;
+}
+
+.foot-actions .btn {
+  margin-left: 16rpx;
+}

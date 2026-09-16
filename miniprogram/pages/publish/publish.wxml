@@ -1,0 +1,122 @@
+<view class="page">
+  <!-- 类型 -->
+  <view class="type-switch">
+    <view
+      class="type-item {{form.type === 'LOST' ? 'active-lost' : ''}}"
+      data-type="LOST"
+      bindtap="switchType"
+    >
+      <text class="type-name">寻物启事</text>
+      <text class="type-desc">我丢了东西</text>
+    </view>
+    <view
+      class="type-item {{form.type === 'FOUND' ? 'active-found' : ''}}"
+      data-type="FOUND"
+      bindtap="switchType"
+    >
+      <text class="type-name">失物招领</text>
+      <text class="type-desc">我捡到东西</text>
+    </view>
+  </view>
+
+  <!-- 分类 -->
+  <view class="card">
+    <view class="section-title">物品分类</view>
+    <view class="category-list">
+      <view
+        wx:for="{{categories}}"
+        wx:key="value"
+        class="category-item {{form.category === item.value ? 'active' : ''}}"
+        data-category="{{item.value}}"
+        bindtap="selectCategory"
+      >{{item.label}}</view>
+    </view>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="card">
+    <view class="form-item">
+      <text class="form-label required">标题</text>
+      <input
+        class="form-input"
+        value="{{form.title}}"
+        data-field="title"
+        maxlength="50"
+        placeholder="例：丢失一张校园一卡通"
+        placeholder-class="form-placeholder"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form-block">
+      <text class="form-label required">详细描述</text>
+      <textarea
+        class="form-textarea"
+        value="{{form.description}}"
+        data-field="description"
+        maxlength="500"
+        placeholder="请说明物品特征、丢失/拾取经过，方便比对（5-500 字）"
+        placeholder-class="form-placeholder"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">{{form.type === 'LOST' ? '丢失地点' : '拾取地点'}}</text>
+      <input
+        class="form-input"
+        value="{{form.place}}"
+        data-field="place"
+        maxlength="60"
+        placeholder="例：东区第二食堂"
+        placeholder-class="form-placeholder"
+        bindinput="onInput"
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">时间</text>
+      <picker mode="date" value="{{form.date}}" bindchange="onDateChange">
+        <view class="picker-value">{{form.date}}</view>
+      </picker>
+      <picker mode="time" value="{{form.time}}" bindchange="onTimeChange">
+        <view class="picker-value">{{form.time}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label required">联系方式</text>
+      <input
+        class="form-input"
+        value="{{form.contact}}"
+        data-field="contact"
+        maxlength="60"
+        placeholder="微信号 / 手机号，仅登录用户可见"
+        placeholder-class="form-placeholder"
+        bindinput="onInput"
+      />
+    </view>
+  </view>
+
+  <!-- 图片 -->
+  <view class="card">
+    <view class="section-title">实物照片（选填，最多 3 张）</view>
+    <view class="image-list">
+      <view
+        wx:for="{{images}}"
+        wx:key="url"
+        class="image-item"
+      >
+        <image class="image-thumb" src="{{item.url}}" mode="aspectFill" data-index="{{index}}" bindtap="previewImage" />
+        <view class="image-remove" data-index="{{index}}" bindtap="removeImage">✕</view>
+      </view>
+      <view wx:if="{{images.length < maxImages}}" class="image-add" bindtap="chooseImage">＋<text class="image-add-text">添加</text></view>
+    </view>
+  </view>
+
+  <view class="tip">提交后需管理员审核，通过后才会在列表中展示</view>
+
+  <view class="btn btn-primary submit-btn" bindtap="submit">
+    {{editId ? '保存修改' : '提交发布'}}
+  </view>
+</view>

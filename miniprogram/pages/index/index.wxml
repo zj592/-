@@ -1,0 +1,78 @@
+<view class="page">
+  <!-- 搜索 -->
+  <view class="search-bar">
+    <view class="search-input-wrap">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        value="{{keyword}}"
+        placeholder="搜索物品名称、地点"
+        placeholder-class="form-placeholder"
+        confirm-type="search"
+        bindinput="onKeywordInput"
+        bindconfirm="onSearch"
+      />
+      <text wx:if="{{keyword}}" class="search-clear" bindtap="clearKeyword">✕</text>
+    </view>
+    <view class="search-btn" bindtap="onSearch">搜索</view>
+  </view>
+
+  <!-- 类型切换 -->
+  <view class="filter-tabs">
+    <view class="filter-tab {{type === '' ? 'active' : ''}}" data-type="" bindtap="switchType">全部</view>
+    <view class="filter-tab {{type === 'LOST' ? 'active' : ''}}" data-type="LOST" bindtap="switchType">寻物启事</view>
+    <view class="filter-tab {{type === 'FOUND' ? 'active' : ''}}" data-type="FOUND" bindtap="switchType">失物招领</view>
+  </view>
+
+  <!-- 分类 -->
+  <scroll-view class="chips" scroll-x enable-flex>
+    <view class="chip {{category === '' ? 'active' : ''}}" data-category="" bindtap="selectCategory">全部分类</view>
+    <view
+      wx:for="{{categories}}"
+      wx:key="value"
+      class="chip {{category === item.value ? 'active' : ''}}"
+      data-category="{{item.value}}"
+      bindtap="selectCategory"
+    >{{item.label}}</view>
+  </scroll-view>
+
+  <!-- 列表 -->
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <text class="empty-icon">📭</text>
+    <text>还没有相关信息，换个条件试试</text>
+  </view>
+
+  <view
+    wx:for="{{list}}"
+    wx:key="id"
+    class="card item-card"
+    data-id="{{item.id}}"
+    bindtap="goDetail"
+  >
+    <view class="item-main">
+      <view class="item-body">
+        <view class="item-tags">
+          <text class="tag {{item.type === 'LOST' ? 'tag-lost' : 'tag-found'}}">{{item.typeText}}</text>
+          <text class="tag tag-primary">{{item.categoryText}}</text>
+          <text wx:if="{{item.status === 'FINISHED'}}" class="tag tag-info">已完成</text>
+        </view>
+        <view class="item-title">{{item.title}}</view>
+        <view class="item-desc">{{item.description}}</view>
+        <view class="item-meta">
+          <text class="meta-item">📍 {{item.place || '未填写地点'}}</text>
+          <text class="meta-item">👁 {{item.viewCount || 0}}</text>
+        </view>
+        <view class="item-footer">
+          <text>{{item.publisherNickname || '匿名同学'}} · {{item.timeText}}</text>
+        </view>
+      </view>
+      <image wx:if="{{item.cover}}" class="item-cover" src="{{item.cover}}" mode="aspectFill" />
+    </view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="loading-more">
+    {{hasMore ? '上拉加载更多' : '已经到底啦，共 ' + total + ' 条'}}
+  </view>
+
+  <view class="fab" bindtap="goPublish">＋</view>
+</view>

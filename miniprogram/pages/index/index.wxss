@@ -1,0 +1,125 @@
+.page {
+  padding: 24rpx 24rpx 120rpx;
+}
+
+/* 搜索 */
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.search-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 40rpx;
+  padding: 0 26rpx;
+  height: 76rpx;
+}
+
+.search-icon {
+  font-size: 26rpx;
+  margin-right: 12rpx;
+}
+
+.search-input {
+  flex: 1;
+  font-size: 27rpx;
+}
+
+.search-clear {
+  color: #b6bdc9;
+  font-size: 26rpx;
+  padding: 0 6rpx;
+}
+
+.search-btn {
+  margin-left: 20rpx;
+  color: #3b7cff;
+  font-size: 28rpx;
+  font-weight: 500;
+}
+
+/* 卡片 */
+.item-card {
+  padding: 26rpx;
+}
+
+.item-main {
+  display: flex;
+}
+
+.item-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-tags {
+  margin-bottom: 12rpx;
+}
+
+.item-title {
+  font-size: 31rpx;
+  font-weight: 600;
+  line-height: 1.4;
+  margin-bottom: 10rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item-desc {
+  font-size: 25rpx;
+  color: #7d8798;
+  line-height: 1.5;
+  margin-bottom: 14rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.item-meta {
+  font-size: 23rpx;
+  color: #98a1b0;
+  margin-bottom: 14rpx;
+}
+
+.meta-item {
+  margin-right: 24rpx;
+}
+
+.item-footer {
+  font-size: 23rpx;
+  color: #b6bdc9;
+}
+
+.item-cover {
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 16rpx;
+  margin-left: 20rpx;
+  background: #f1f3f7;
+  flex-shrink: 0;
+}
+
+/* 悬浮发布按钮 */
+.fab {
+  position: fixed;
+  right: 40rpx;
+  bottom: 60rpx;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  background: #3b7cff;
+  color: #ffffff;
+  font-size: 52rpx;
+  line-height: 96rpx;
+  text-align: center;
+  box-shadow: 0 8rpx 24rpx rgba(59, 124, 255, 0.35);
+}

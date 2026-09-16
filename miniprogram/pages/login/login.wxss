@@ -1,0 +1,107 @@
+.page {
+  padding: 80rpx 40rpx 60rpx;
+}
+
+.logo {
+  text-align: center;
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+}
+
+/* 微信一键登录 */
+.wx-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92rpx;
+  border-radius: 46rpx;
+  background: #07c160;
+  color: #ffffff;
+  font-size: 31rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(7, 193, 96, 0.28);
+}
+
+.wx-login.disabled {
+  opacity: 0.6;
+}
+
+.wx-icon {
+  margin-right: 14rpx;
+  font-size: 32rpx;
+}
+
+.wx-tip {
+  text-align: center;
+  font-size: 22rpx;
+  color: #b6bdc9;
+  margin: 16rpx 0 30rpx;
+}
+
+.or-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20rpx;
+}
+
+.or-text {
+  font-size: 23rpx;
+  color: #b6bdc9;
+  position: relative;
+  padding: 0 20rpx;
+}
+
+.or-text::before,
+.or-text::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 90rpx;
+  height: 1rpx;
+  background: #e6eaf2;
+}
+
+.or-text::before {
+  left: -90rpx;
+}
+
+.or-text::after {
+  right: -90rpx;
+}
+
+.title {
+  text-align: center;
+  font-size: 44rpx;
+  font-weight: 700;
+  color: #1f2733;
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 25rpx;
+  color: #98a1b0;
+  margin: 14rpx 0 50rpx;
+}
+
+.mode-tabs {
+  margin-bottom: 28rpx;
+}
+
+.submit-btn {
+  margin-top: 20rpx;
+  box-shadow: 0 8rpx 20rpx rgba(59, 124, 255, 0.28);
+}
+
+.demo-tip {
+  margin-top: 40rpx;
+  font-size: 22rpx;
+  color: #b6bdc9;
+  text-align: center;
+  line-height: 1.8;
+}
+
+.demo-fill {
+  color: #3b7cff;
+  margin-left: 12rpx;
+}

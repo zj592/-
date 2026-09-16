@@ -1,0 +1,82 @@
+<view class="page">
+  <!-- 概览 -->
+  <view class="stat-grid">
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.totalItems}}</text>
+      <text class="stat-label">信息总数</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num warning">{{stats.pendingItems}}</text>
+      <text class="stat-label">待审核</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.finishedItems}}</text>
+      <text class="stat-label">已完成</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.totalUsers}}</text>
+      <text class="stat-label">用户数</text>
+    </view>
+  </view>
+
+  <view class="stat-grid second">
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.todayItems}}</text>
+      <text class="stat-label">今日新增</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.totalClaims}}</text>
+      <text class="stat-label">认领申请</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.pendingClaims}}</text>
+      <text class="stat-label">待处理申请</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.approvedItems}}</text>
+      <text class="stat-label">展示中</text>
+    </view>
+  </view>
+
+  <!-- 状态切换 -->
+  <view class="filter-tabs">
+    <view class="filter-tab {{status === 'PENDING' ? 'active' : ''}}" data-status="PENDING" bindtap="switchStatus">待审核</view>
+    <view class="filter-tab {{status === 'APPROVED' ? 'active' : ''}}" data-status="APPROVED" bindtap="switchStatus">已通过</view>
+    <view class="filter-tab {{status === 'REJECTED' ? 'active' : ''}}" data-status="REJECTED" bindtap="switchStatus">已驳回</view>
+    <view class="filter-tab {{status === 'ALL' ? 'active' : ''}}" data-status="ALL" bindtap="switchStatus">全部</view>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <text class="empty-icon">✅</text>
+    <text>当前没有需要处理的信息</text>
+  </view>
+
+  <view wx:for="{{list}}" wx:key="id" class="card">
+    <view class="row-between" data-id="{{item.id}}" bindtap="goDetail">
+      <view class="item-tags">
+        <text class="tag {{item.type === 'LOST' ? 'tag-lost' : 'tag-found'}}">{{item.typeText}}</text>
+        <text class="tag tag-primary">{{item.categoryText}}</text>
+        <text class="tag tag-{{item.statusCls}}">{{item.statusText}}</text>
+      </view>
+      <text class="time-text">{{item.timeText}}</text>
+    </view>
+
+    <view class="audit-title">{{item.title}}</view>
+    <view class="audit-desc">{{item.description}}</view>
+    <view class="audit-meta">发布人：{{item.publisherNickname || '同学'}} · 📍{{item.place || '未填写'}} · ☎{{item.contact || '未填写'}}</view>
+    <view wx:if="{{item.rejectReason}}" class="reject-text">驳回原因：{{item.rejectReason}}</view>
+
+    <view wx:if="{{item.status === 'PENDING' || item.status === 'REJECTED'}}" class="audit-actions">
+      <view wx:if="{{item.status === 'REJECTED'}}" class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="reject">重新驳回</view>
+      <view wx:else class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="reject">驳回</view>
+      <view class="btn btn-primary btn-sm primary-sm" data-id="{{item.id}}" catchtap="approve">通过</view>
+    </view>
+    <view wx:else class="audit-actions">
+      <view class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="reject">驳回下架</view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="loading-more">
+    {{hasMore ? '上拉加载更多' : '已全部加载，共 ' + total + ' 条'}}
+  </view>
+</view>

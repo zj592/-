@@ -1,0 +1,79 @@
+<view class="page">
+  <!-- 用户信息 -->
+  <view class="user-card">
+    <block wx:if="{{isLogin}}">
+      <image wx:if="{{user.avatar}}" class="avatar" src="{{user.avatar}}" />
+      <view wx:else class="avatar avatar-text">{{user.nickname ? user.nickname[0] : '同'}}</view>
+      <view class="user-info">
+        <view class="user-name">
+          {{user.nickname || user.username}}
+          <text wx:if="{{isAdmin}}" class="tag tag-primary admin-tag">管理员</text>
+        </view>
+        <view class="user-sub" bindtap="editNickname">账号 {{user.username}} · 点击修改昵称</view>
+      </view>
+    </block>
+    <block wx:else>
+      <view class="avatar avatar-text">?</view>
+      <view class="user-info">
+        <view class="user-name">未登录</view>
+        <view class="user-sub">登录后可以发布信息、申请认领</view>
+      </view>
+      <view class="login-btn" bindtap="goLogin">登录</view>
+    </block>
+  </view>
+
+  <!-- 统计 -->
+  <view class="stat-grid">
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.published}}</text>
+      <text class="stat-label">我发布的</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.pending}}</text>
+      <text class="stat-label">待审核</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.claims}}</text>
+      <text class="stat-label">我的申请</text>
+    </view>
+    <view class="stat-cell">
+      <text class="stat-num">{{stats.pendingReceived}}</text>
+      <text class="stat-label">待我处理</text>
+    </view>
+  </view>
+
+  <!-- 菜单 -->
+  <view class="card menu-card">
+    <view class="menu-item" bindtap="goMyItems">
+      <text class="menu-icon">📋</text>
+      <text class="menu-text">我发布的信息</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goMyClaims">
+      <text class="menu-icon">🙋</text>
+      <text class="menu-text">我提交的认领申请</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goReceived">
+      <text class="menu-icon">📨</text>
+      <text class="menu-text">我收到的认领申请</text>
+      <text wx:if="{{stats.pendingReceived > 0}}" class="menu-badge">{{stats.pendingReceived}}</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" bindtap="goNotices">
+      <text class="menu-icon">🔔</text>
+      <text class="menu-text">消息通知</text>
+      <text wx:if="{{unread > 0}}" class="menu-badge">{{unread}}</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view wx:if="{{isAdmin}}" class="menu-item" bindtap="goAudit">
+      <text class="menu-icon">🛡</text>
+      <text class="menu-text">信息审核后台</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{isLogin}}" class="logout" bindtap="logout">退出登录</view>
+
+  <view class="footer-tip">校园失物招领 · 让每件东西都能回家</view>
+</view>

@@ -1,0 +1,50 @@
+<view class="page">
+  <view class="filter-tabs">
+    <view class="filter-tab {{status === 'ALL' ? 'active' : ''}}" data-status="ALL" bindtap="switchStatus">全部</view>
+    <view class="filter-tab {{status === 'PENDING' ? 'active' : ''}}" data-status="PENDING" bindtap="switchStatus">待审核</view>
+    <view class="filter-tab {{status === 'APPROVED' ? 'active' : ''}}" data-status="APPROVED" bindtap="switchStatus">已通过</view>
+    <view class="filter-tab {{status === 'FINISHED' ? 'active' : ''}}" data-status="FINISHED" bindtap="switchStatus">已完成</view>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <text class="empty-icon">📝</text>
+    <text>还没有发布过信息</text>
+  </view>
+
+  <view
+    wx:for="{{list}}"
+    wx:key="id"
+    class="card"
+    data-id="{{item.id}}"
+    bindtap="goDetail"
+  >
+    <view class="row-between">
+      <view class="item-tags">
+        <text class="tag {{item.type === 'LOST' ? 'tag-lost' : 'tag-found'}}">{{item.typeText}}</text>
+        <text class="tag tag-{{item.statusCls}}">{{item.statusText}}</text>
+      </view>
+      <text class="time-text">{{item.timeText}}</text>
+    </view>
+
+    <view class="item-title">{{item.title}}</view>
+    <view wx:if="{{item.rejectReason}}" class="reject-text">驳回原因：{{item.rejectReason}}</view>
+
+    <view class="item-foot">
+      <text class="foot-text">{{item.categoryText}} · 👁 {{item.viewCount || 0}}</text>
+      <view class="foot-actions">
+        <view
+          wx:if="{{item.status === 'APPROVED'}}"
+          class="btn btn-plain btn-sm"
+          data-id="{{item.id}}"
+          catchtap="finish"
+        >标记完成</view>
+        <view class="btn btn-plain btn-sm" data-id="{{item.id}}" catchtap="edit">编辑</view>
+        <view class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="remove">删除</view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="loading-more">
+    {{hasMore ? '上拉加载更多' : '已全部加载，共 ' + total + ' 条'}}
+  </view>
+</view>

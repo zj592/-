@@ -1,0 +1,9 @@
+# 构建上下文里不需要的内容，减少镜像构建时的传输量
+target/
+uploads/
+*.log
+*.iml
+.idea/
+.settings/
+.classpath
+.project

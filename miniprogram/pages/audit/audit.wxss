@@ -1,0 +1,68 @@
+.page {
+  padding: 24rpx 24rpx 60rpx;
+}
+
+.stat-grid.second {
+  margin-top: -8rpx;
+}
+
+.stat-num.warning {
+  color: #e9a13b;
+}
+
+.item-tags {
+  display: flex;
+}
+
+.time-text {
+  font-size: 23rpx;
+  color: #b6bdc9;
+}
+
+.audit-title {
+  font-size: 31rpx;
+  font-weight: 600;
+  margin: 16rpx 0 10rpx;
+}
+
+.audit-desc {
+  font-size: 26rpx;
+  color: #7d8798;
+  line-height: 1.6;
+  margin-bottom: 14rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.audit-meta {
+  font-size: 23rpx;
+  color: #98a1b0;
+  line-height: 1.6;
+}
+
+.reject-text {
+  font-size: 24rpx;
+  color: #f2544b;
+  background: #feeceb;
+  border-radius: 10rpx;
+  padding: 12rpx 16rpx;
+  margin-top: 14rpx;
+  line-height: 1.5;
+}
+
+.audit-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
+.audit-actions .btn {
+  margin-left: 16rpx;
+}
+
+.primary-sm {
+  color: #ffffff;
+}

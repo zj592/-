@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="filter-tabs">
+    <view class="filter-tab {{tab === 'mine' ? 'active' : ''}}" data-tab="mine" bindtap="switchTab">我提交的</view>
+    <view class="filter-tab {{tab === 'received' ? 'active' : ''}}" data-tab="received" bindtap="switchTab">我收到的</view>
+  </view>
+
+  <view wx:if="{{list.length === 0 && !loading}}" class="empty">
+    <text class="empty-icon">📮</text>
+    <text>{{tab === 'mine' ? '还没有提交过认领申请' : '还没有人申请认领你的信息'}}</text>
+  </view>
+
+  <view wx:for="{{list}}" wx:key="id" class="card">
+    <view class="row-between" data-item-id="{{item.itemId}}" bindtap="goDetail">
+      <view class="claim-item-title">{{item.itemTitle}}</view>
+      <text class="tag tag-{{item.statusCls}}">{{item.statusText}}</text>
+    </view>
+
+    <view class="claim-item-sub">{{item.itemTypeText}} · {{item.timeText}}</view>
+
+    <view class="divider"></view>
+
+    <view class="claim-row">
+      <text class="claim-label">{{tab === 'mine' ? '我的说明' : '申请说明'}}</text>
+      <text class="claim-value">{{item.description}}</text>
+    </view>
+
+    <view wx:if="{{tab === 'received'}}" class="claim-row">
+      <text class="claim-label">申请人</text>
+      <text class="claim-value">{{item.claimantNickname || '同学'}}</text>
+    </view>
+
+    <view wx:if="{{item.contact}}" class="claim-row" data-contact="{{item.contact}}" bindtap="contact">
+      <text class="claim-label">联系方式</text>
+      <text class="claim-value highlight">{{item.contact}}（点击复制）</text>
+    </view>
+
+    <view wx:if="{{item.auditRemark}}" class="claim-row">
+      <text class="claim-label">处理备注</text>
+      <text class="claim-value">{{item.auditRemark}}</text>
+    </view>
+
+    <view wx:if="{{item.status === 'PENDING'}}" class="claim-actions">
+      <block wx:if="{{tab === 'mine'}}">
+        <view class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="cancel">撤销申请</view>
+      </block>
+      <block wx:else>
+        <view class="btn btn-ghost btn-sm" data-id="{{item.id}}" catchtap="reject">驳回</view>
+        <view class="btn btn-primary btn-sm primary-sm" data-id="{{item.id}}" catchtap="approve">同意认领</view>
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="loading-more">
+    {{hasMore ? '上拉加载更多' : '已全部加载，共 ' + total + ' 条'}}
+  </view>
+</view>
